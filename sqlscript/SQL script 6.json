@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 6",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL DATA SOURCE DeltaLakeStorage\nWITH ( LOCATION = 'https://sqlondemandstorage.blob.core.windows.net/delta-lake/' );\nGO\n\nSELECT TOP 10 *\nFROM OPENROWSET(\n        BULK 'covid',\n        DATA_SOURCE = 'DeltaLakeStorage',\n        FORMAT = 'delta'\n    ) as rows;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "demodb",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

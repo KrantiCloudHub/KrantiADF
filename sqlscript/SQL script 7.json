@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 7",
+	"properties": {
+		"content": {
+			"query": "\n--- DATA FILE FETCH FROM AZURE BLOD STORAGE -- need provide role access om blod level\n\n --- PERSMISSON ROLE \"staorge blod data contributor\"\n\nSELECT *\nFROM OPENROWSET(\nBULK 'https://krantihubstorage.blob.core.windows.net/input/dept_data_validation.csv',\nFORMAT='CSV',\nHEADER_ROW=TRUE,\nPARSER_VERSION='2.0'\n--)with (deptno int\n)AS ROWS\n\n\n---\n---  data fetch from synapse adls CSV FORMAT\nSELECT *\nFROM OPENROWSET(\nBULK 'https://krantiadlsgen2.dfs.core.windows.net/synapseinput/emp.csv',\nFORMAT='CSV',\nHEADER_ROW=TRUE,\nPARSER_VERSION='2.0'\n--)with (empno int\n)AS ROWS\n\n---  data fetch from synapse adls CSV PARQUET FORMAT\n\nSELECT TOP 10 *\nFROM OPENROWSET(\nBULK 'https://krantiadlsgen2.dfs.core.windows.net/synapseinput/NYCTripSmall.parquet',\nFORMAT='PARQUET'\n--)with (empno int\n)AS ROWS\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

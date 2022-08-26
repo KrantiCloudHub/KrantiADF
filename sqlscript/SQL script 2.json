@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"content": {
+			"query": "create database demodb1\nCOLLATE latin1_General_100_BIN2_UTF8;\n\n  -- Creates the master key.\n  -- The key is encrypted using the password '@Krantiazure99'; \nUSE demodb1\nGO\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = '@Krantiazure99';  \nGO\n\n--CREATE DATABASE SCOPED CREDENTIAL krantiExtcredentials\n-- IDENTITY='SHARED ACCESS SIGNATURE',  \n--SECRET ='sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupyx&se=2022-08-31T15:38:46Z&st=2022-08-11T07:38:46Z&spr=https&sig=IVEb1QYKz%2F6F5G826lNdVkAJiw1mwCUwVM0wWcmaVPg%3D'\n--GO\nCREATE DATABASE SCOPED CREDENTIAL ManagedIdentity\nWITH\n     IDENTITY= 'Managed Identity'\n\nGO\n\nCREATE EXTERNAL DATA SOURCE AzureDataLakeStore1\nWITH\n  -- Please note the abfss endpoint when your account has secure transfer enabled\n  ( LOCATION = 'https://krantiadlsgen2.dfs.core.windows.net/',\n    CREDENTIAL = ManagedIdentity\n    --TYPE = HADOOP\n  ) \nGO\nCREATE EXTERNAL FILE FORMAT ParquetFileFormat1\nWITH\n(  \n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n);\n\n\n--CREATE EXTERNAL DATA SOURCE AzureDataLakeStore\n--WITH\n  -- Please note the abfss endpoint when your account has secure transfer enabled\n  --( LOCATION = 'https://krantiadlsgen2.dfs.core.windows.net/',\n  --  CREDENTIAL = krantiExtcredentials\n    --TYPE = HADOOP\n -- ) ;\n\n\n  -- Creates a backup of the service master key.\n--USE master;\n--GO\n--BACKUP SERVICE MASTER KEY TO FILE = 'c:\\temp_backups\\keys\\service_master_ key'\n--    ENCRYPTION BY PASSWORD = '@Krantiazure99';\n--GO\n\n\n-- Restores the service master key from a backup file.  \n--RESTORE SERVICE MASTER KEY   \n --   FROM FILE = 'c:\\temp_backups\\keys\\service_master_key'   \n --   DECRYPTION BY PASSWORD = '@Krantiazure99';  \n --GO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "demodb1",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

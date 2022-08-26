@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 5",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [dbo].[employeesNew1]\nWITH\n(\n    DISTRIBUTION = ROUND_ROBIN ,\n    CLUSTERED COLUMNSTORE INDEX\n)AS\n\nselect * from dbo.employees\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "SQLPOOL1",
+				"poolName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 3",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [dbo].[employees]\n(\n    empid int NOT NULL,\n    empname NVARCHAR(50),\n    gender  NVARCHAR(10)\n)\nWITH\n(\n    DISTRIBUTION = HASH (empid),\n    CLUSTERED COLUMNSTORE INDEX\n)\nGO\ninsert into dbo.employees values(10,'Kranti','male')\ninsert into dbo.employees values(11,'Navya','female')\ninsert into dbo.employees values(12,'Kumar','male')",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "SQLPOOL1",
+				"poolName": "SQLPOOL1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,327 @@
+{
+	"name": "Notebook 2",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkpool2",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "64406e30-6309-4161-8541-28a471283fe7"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/4cf5bf84-c9af-4ebb-baae-c9ac2376f4e8/resourceGroups/kranticloudhub/providers/Microsoft.Synapse/workspaces/krantisynapse/bigDataPools/sparkpool2",
+				"name": "sparkpool2",
+				"type": "Spark",
+				"endpoint": "https://krantisynapse.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool2",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.2",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"**Panda read/write files form adls**"
+				],
+				"attachments": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"#read data file csv if u want parquet/excel \r\n",
+					"import pandas\r\n",
+					"\r\n",
+					"df = pandas.read_csv('abfss://synapseinput@krantiadlsgen2.dfs.core.windows.net/emp.csv', \r\n",
+					"storage_options = {'account_key' :'e0niRqLR1UdUx7R4lkD/rbtYLlXjs1VNzfu+Q5pmcPjR9Nln2cfDErifM0FElKSCcLcfoxjG1kxA+AStoHad3g=='})\r\n",
+					"\r\n",
+					"display(df)\r\n",
+					"\r\n",
+					"\r\n",
+					"    "
+				],
+				"attachments": null,
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#write data file csv\r\n",
+					"\r\n",
+					"import pandas\r\n",
+					"data = pandas.DataFrame({'Name':['kranti','kumar'],'ID':[100,101]})\r\n",
+					"data.to_csv('abfss://synapseinput@krantiadlsgen2.dfs.core.windows.net/emp_panda.csv',\r\n",
+					"storage_options = {'account_key' : 'e0niRqLR1UdUx7R4lkD/rbtYLlXjs1VNzfu+Q5pmcPjR9Nln2cfDErifM0FElKSCcLcfoxjG1kxA+AStoHad3g=='})\r\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": 16
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#write data file parquet\r\n",
+					"\r\n",
+					"import pandas\r\n",
+					"data = pandas.DataFrame({'Name':['kranti','kumar'],'ID':[100,101]})\r\n",
+					"data.to_parquet('abfss://synapseinput@krantiadlsgen2.dfs.core.windows.net/emp_panda.parquet',\r\n",
+					"storage_options = {'account_key' : 'e0niRqLR1UdUx7R4lkD/rbtYLlXjs1VNzfu+Q5pmcPjR9Nln2cfDErifM0FElKSCcLcfoxjG1kxA+AStoHad3g=='})\r\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": 18
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#write data file excel\r\n",
+					"import pandas\r\n",
+					"data = pandas.DataFrame({'Name':['kranti','kumar'],'ID':[100,101]})\r\n",
+					"data.to_excel('abfss://synapseinput@krantiadlsgen2.dfs.core.windows.net/emp_panda.xlsx',\r\n",
+					"storage_options = {'account_key' : 'e0niRqLR1UdUx7R4lkD/rbtYLlXjs1VNzfu+Q5pmcPjR9Nln2cfDErifM0FElKSCcLcfoxjG1kxA+AStoHad3g=='})\r\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": 20
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"\r\n",
+					"**FSSPEC**\r\n",
+					"\r\n",
+					"**Read/Write data using storage account name and key**\r\n",
+					""
+				],
+				"attachments": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"import pandas\r\n",
+					"import fsspec\r\n",
+					"# Read files \r\n",
+					"\r\n",
+					"adls_account_name='krantiadlsgen2'\r\n",
+					"adls_account_key='e0niRqLR1UdUx7R4lkD/rbtYLlXjs1VNzfu+Q5pmcPjR9Nln2cfDErifM0FElKSCcLcfoxjG1kxA+AStoHad3g=='\r\n",
+					"\r\n",
+					"fsspec_adls=fsspec.open('abfss://synapseinput/emp.csv',account_name=adls_account_name,account_key=adls_account_key)\r\n",
+					"with fsspec_adls.open() as f:\r\n",
+					" df=pandas.read_csv(f)\r\n",
+					"\r\n",
+					"display(df)\r\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"\r\n",
+					"# To write data\r\n",
+					"import fsspec\r\n",
+					"import pandas\r\n",
+					"\r\n",
+					"adls_account_name='krantiadlsgen2'\r\n",
+					"adls_account_key='e0niRqLR1UdUx7R4lkD/rbtYLlXjs1VNzfu+Q5pmcPjR9Nln2cfDErifM0FElKSCcLcfoxjG1kxA+AStoHad3g=='\r\n",
+					"\r\n",
+					"data = pandas.DataFrame({'Name':['Tom', 'nick', 'krish', 'jack'], 'Age':[20, 21, 19, 18]})\r\n",
+					"\r\n",
+					"fsspec_adls=fsspec.open('abfss://synapseinput/emp_fsspec.csv',account_name=adls_account_name,account_key=adls_account_key,mode=\"wt\")\r\n",
+					"\r\n",
+					"with fsspec_adls.open() as f:\r\n",
+					" data.to_csv(f)"
+				],
+				"attachments": null,
+				"execution_count": 13
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"**FSSPEC**\r\n",
+					"\r\n",
+					"**Read/Write data using linked service**"
+				],
+				"attachments": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"# READ File\r\n",
+					"\r\n",
+					"import pandas\r\n",
+					"import fsspec\r\n",
+					"\r\n",
+					"adls_account_name ='krantiadlsgen2'\r\n",
+					"sas_key=TokenLibrary.getConnectionString('AzureDataLakeStorage1')\r\n",
+					"\r\n",
+					"fsspec_handle=fsspec.open('abfss://synapseinput/emp.csv',account_name=adls_account_name,sas_token=sas_key)\r\n",
+					"with fsspec_handle.open() as f:\r\n",
+					"  df=pandas.read_csv(f)\r\n",
+					"\r\n",
+					"display(df)"
+				],
+				"attachments": null,
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# WRITE File\r\n",
+					"import pandas\r\n",
+					"import fsspec\r\n",
+					"\r\n",
+					"adls_account_name ='krantiadlsgen2'\r\n",
+					"sas_key=TokenLibrary.getConnectionString('AzureDataLakeStorage1')\r\n",
+					"\r\n",
+					"data = pandas.DataFrame({'Name':['Tom', 'nick', 'krish', 'jack'], 'Age':[20, 21, 19, 18]})\r\n",
+					"\r\n",
+					"fsspec_handle=fsspec.open('abfss://synapseinput/emp_fsspec_linked.csv',account_name=adls_account_name,sas_token=sas_key,mode='wt')\r\n",
+					"with fsspec_handle.open() as f:\r\n",
+					"  data.to_csv(f)\r\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": 28
+			}
+		]
+	}
+}
